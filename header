@@ -1,1 +1,53 @@
+#ifndef PAIRINGHEAP_H
+#define PAIRINGHEAP_H
+#include <string>
+using namespace std;
+
+struct PairNode{
+    string name;
+    int value;
+    PairNode *leftChild;
+    PairNode *sibling;
+
+    PairNode():
+        leftChild(NULL), sibling(NULL) {}
+
+    PairNode(string name1, int value1, PairNode *leftChild1, PairNode *sibling1):
+        name(name1), value(value1), leftChild(leftChild1), sibling(sibling1) {}
+
+    void addChild(PairNode *node){
+        if (leftChild == NULL){
+            leftChild    = node;
+        } else {
+            node->sibling = leftChild;
+            leftChild = node;
+        }
+    }
+};
+
+class PairingHeap{
+
+public:
+    //constructor
+    PairingHeap();
+    //destuctor
+    ~PairingHeap();
+
+    bool isEmpty() const;
+    void insert(string name, int value);
+    PairNode peek() const;
+    PairNode *remove();
+    
+    void printOut() const;
+    void deleteAll(PairNode *node);
+
+private:
+    PairNode *origin;
+    int logicalSize;
+    PairNode *mergeTrees(PairNode *first, PairNode *second);
+    PairNode *mergeSiblings(PairNode *node);
+    
+};
+
+#endif // PAIRINGHEAP_H
 
